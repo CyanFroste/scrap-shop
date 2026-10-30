@@ -1,16 +1,42 @@
 ---
+import '../styles/global.css';
+import Counter from '../components/Counter';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+		<link rel="icon" href={`${base}favicon.ico`} />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Astro + React + Tailwind</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="min-h-screen bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 flex flex-col items-center justify-center p-6">
+		<main class="w-full max-w-2xl text-center space-y-8">
+			<header class="space-y-3">
+				<div class="inline-flex items-center gap-2 px-3 py-1 text-sm font-medium rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+					<span>🚀 Astro</span>
+					<span>•</span>
+					<span>⚛️ React</span>
+					<span>•</span>
+					<span>🎨 Tailwind CSS</span>
+				</div>
+				<h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">
+					Astro + React + Tailwind CSS
+				</h1>
+				<p class="text-lg text-zinc-600 dark:text-zinc-400">
+					React and Tailwind CSS have been configured and verified in this Astro project.
+				</p>
+			</header>
+
+			<section class="py-4">
+				<Counter client:load />
+			</section>
+		</main>
 	</body>
 </html>
