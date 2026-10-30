@@ -1,0 +1,58 @@
+---
+import { siteConfig } from '../config/site';
+---
+
+<section id="contact-info" class="scroll-mt-20 py-16 bg-zinc-50 dark:bg-zinc-950">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center space-y-3 mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-xs font-semibold uppercase tracking-wider">
+        <span>Location</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
+        Our Address
+      </h2>
+      <p class="text-base text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto">
+        Our central processing facility and scrap collection operational center.
+      </p>
+    </div>
+
+    <!-- Address Card Only -->
+    <div class="max-w-xl mx-auto">
+      <div class="bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-6">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl">
+            📍
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-zinc-900 dark:text-white">
+              Office & Hub Address
+            </h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+              Central processing facility and dispatch operations hub.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700/80 space-y-1.5 text-sm text-zinc-800 dark:text-zinc-200">
+            <p class="font-bold text-zinc-900 dark:text-white text-base">{siteConfig.siteName} Hub</p>
+            <p>{siteConfig.address.line1}</p>
+            <p>{siteConfig.address.line2}</p>
+            <p>{siteConfig.address.city}, {siteConfig.address.state} — <span class="font-mono font-semibold">{siteConfig.address.pincode}</span></p>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <a
+            href={siteConfig.address.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full py-3.5 px-4 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500 text-sm font-semibold flex items-center justify-center gap-2 transition-colors"
+          >
+            <span>🗺️ View on Google Maps</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

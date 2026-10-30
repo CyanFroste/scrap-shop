@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PriceCatalog from '../components/PriceCatalog';
+import { loadScrapPricesFromCsv } from '../utils/csvLoader';
+import { siteConfig } from '../config/site';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+
+// Load scrap items from CSV at build time
+const items = loadScrapPricesFromCsv();
+---
+
+<Layout
+  title={`Scrap Rates & Price List — ${siteConfig.siteName}`}
+  description={`Check today's live doorstep scrap collection prices for Paper, Metals, Plastics, and Appliances on ${siteConfig.siteName}.`}
+>
+  <div class="py-12 sm:py-16 bg-gradient-to-b from-emerald-50/40 via-white to-zinc-50 dark:from-emerald-950/20 dark:via-zinc-950 dark:to-zinc-950 min-h-[80vh]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <!-- Breadcrumb & Header -->
+      <div class="space-y-4 text-center sm:text-left">
+        <div class="flex items-center justify-center sm:justify-start gap-2 text-xs text-zinc-500 font-medium">
+          <a href={base} class="hover:text-emerald-600 dark:hover:text-emerald-400">Home</a>
+          <span>/</span>
+          <span class="text-zinc-900 dark:text-zinc-300">Scrap Rates</span>
+        </div>
+
+        <div>
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>Updated Regularly</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
+              Scrap Rates & Price Index
+            </h1>
+            <p class="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl">
+              Transparent, fair prices based on daily recycling market value. All items weighed on ISO-certified digital scales at your doorstep.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price Catalog (Loaded from CSV) -->
+      <PriceCatalog
+        client:load
+        items={items}
+        whatsappNumber={siteConfig.whatsappNumber}
+        companyPhone={siteConfig.phone}
+        companyPhoneClean={siteConfig.phoneClean}
+      />
+
+      <!-- Bottom Bulk Scrap Banner with generous spacing from catalog -->
+      <div class="mt-16 sm:mt-24 p-8 rounded-2xl bg-zinc-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+        <div class="space-y-2 text-center md:text-left">
+          <h3 class="text-xl font-bold">
+            Have bulk scrap or commercial waste?
+          </h3>
+          <p class="text-sm text-zinc-400 max-w-xl">
+            We provide custom rates and dedicated pickup vehicles for factories, offices, apartments, and demolition sites.
+          </p>
+        </div>
+        <div class="shrink-0 flex flex-wrap items-center gap-3">
+          <a
+            href={`tel:${siteConfig.phoneClean}`}
+            class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg>
+            <span>Call {siteConfig.phone}</span>
+          </a>
+
+          <a
+            href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent('Hi, I have bulk scrap for pickup. Please share commercial rates.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-semibold text-sm transition-colors flex items-center gap-2"
+          >
+            <span>💬 WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
